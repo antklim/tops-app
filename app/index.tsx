@@ -1,18 +1,24 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, useColorScheme } from 'react-native'
+import { StyleSheet, useColorScheme } from 'react-native'
+import { ThemeProvider } from "@react-navigation/native"
+
+import View from '../ui/components/view'
+import Text from '../ui/components/text'
+import DarkTheme from '../ui/themes/dark'
+import LightTheme from '../ui/themes/light'
 
 const App = () => {
   const colorScheme = useColorScheme()
 
-  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
-  const themeContainerStyle =
-    colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
+  const theme = colorScheme === 'light' ? LightTheme : DarkTheme;
 
   return (
-    <View style={[styles.container, themeContainerStyle]}>
-      <Text style={[styles.text, themeTextStyle]}>Open up app/index.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider value={theme}>
+      <View style={styles.container}>
+        <Text>Scheme name {colorScheme}</Text>
+        <StatusBar style="auto" />
+      </View>
+    </ThemeProvider>
   )
 }
 
@@ -21,21 +27,7 @@ export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {},
-  lightContainer: {
-    backgroundColor: '#d0d0c0',
-  },
-  darkContainer: {
-    backgroundColor: '#242c40',
-  },
-  lightThemeText: {
-    color: '#242c40',
-  },
-  darkThemeText: {
-    color: '#d0d0c0',
   },
 })
