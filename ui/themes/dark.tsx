@@ -1,6 +1,6 @@
 import { DarkTheme as BaseTheme, Theme } from '@react-navigation/native'
 
-const DarkTheme: Theme = {
+export const DarkTheme: Theme = {
   ...BaseTheme,
   colors: {
     ...BaseTheme.colors,
@@ -8,5 +8,3 @@ const DarkTheme: Theme = {
     text: '#d0d0c0',
   }
 }
-
-export default DarkTheme
