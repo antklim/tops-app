@@ -1,6 +1,6 @@
-import { useTheme } from '@react-navigation/native';
-import { type FC } from 'react';
-import { Text as DefaultText, type TextProps } from 'react-native';
+import { useTheme } from '@react-navigation/native'
+import { type FC } from 'react'
+import { Text as DefaultText, type TextProps } from 'react-native'
 
 export const Text: FC<TextProps> = (props) => {
   const { colors } = useTheme()
@@ -8,5 +8,5 @@ export const Text: FC<TextProps> = (props) => {
 
   const color = colors.text
 
-  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+  return <DefaultText style={[{ color }, style]} {...otherProps} />
 }
