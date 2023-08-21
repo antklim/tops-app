@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
+    "build": "tsc",
+    "lint": "echo \"No linting configured\"",
     "test": "jest --passWithNoTests",
     "start": "expo start",
     "android": "expo start --android",
