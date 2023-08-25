@@ -23,16 +23,12 @@ export const useAuth = () => useContext(AuthContext)
 const useProtectedRoute = (user?: User) => {
   const segments = useSegments()
 
-  console.log('useProtectedRoute > segments', segments)
-
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
 
     if (!user && !inAuthGroup) {
-      console.log('useProtectedRoute > redirecting to /sign-in')
       router.replace('/sign-in')
     } else if (user && inAuthGroup) {
-      console.log('useProtectedRoute > redirecting to /')
       router.replace('/')
     }
 
