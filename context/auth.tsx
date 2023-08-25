@@ -1,31 +1,38 @@
 import { router, useSegments } from 'expo-router'
-import React from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+
+interface User {
+  name: string
+}
 
 interface AuthContextShape {
   signIn: () => void
   signOut: () => void
-  user: unknown
+  user?: User
 }
 
 const defaultAuthContext: AuthContextShape = {
   signIn: () => {},
   signOut: () => {},
-  user: null
 }
 
-const AuthContext = React.createContext<AuthContextShape>(defaultAuthContext)
+const AuthContext = createContext<AuthContextShape>(defaultAuthContext)
 
-export const useAuth = () => React.useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext)
 
-const useProtectedRoute = (user: unknown) => {
+const useProtectedRoute = (user?: User) => {
   const segments = useSegments()
 
-  React.useEffect(() => {
+  console.log('useProtectedRoute > segments', segments)
+
+  useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
 
     if (!user && !inAuthGroup) {
+      console.log('useProtectedRoute > redirecting to /sign-in')
       router.replace('/sign-in')
     } else if (user && inAuthGroup) {
+      console.log('useProtectedRoute > redirecting to /')
       router.replace('/')
     }
 
@@ -33,15 +40,15 @@ const useProtectedRoute = (user: unknown) => {
 }
 
 export const AuthProvider = ({ children }: { children: any }) => {
-  const [user, setUser] = React.useState<{} | null>(null)
+  const [user, setUser] = useState<User>()
 
   useProtectedRoute(user)
 
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => setUser({}),
-        signOut: () => setUser(null),
+        signIn: () => setUser({ name: 'John Doe' }),
+        signOut: () => setUser(undefined),
         user
       }}>
       {children}
