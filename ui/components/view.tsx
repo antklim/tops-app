@@ -1,6 +1,6 @@
-import { useTheme } from '@react-navigation/native';
-import { type FC } from 'react';
-import { View as DefaultView, type ViewProps } from 'react-native';
+import { useTheme } from '@react-navigation/native'
+import { type FC } from 'react'
+import { View as DefaultView, type ViewProps } from 'react-native'
 
 export const View: FC<ViewProps> = (props) => {
   const { colors } = useTheme()
