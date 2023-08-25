@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { useAuth } from 'context/auth'
-import { Text, View } from 'ui/components'
+import { Text, View } from 'ui/component'
 
 const SignIn = () => {
   const { signIn } = useAuth()

@@ -3,7 +3,7 @@ import { Slot, SplashScreen, Stack } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { useColorScheme } from 'react-native'
 
-import { DarkTheme, LightTheme } from 'ui/themes'
+import { DarkTheme, LightTheme } from 'ui/theme'
 import { AuthProvider, useAuth } from 'context/auth'
 
 // Catch any errors thrown by the Layout component.

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, useColorScheme } from 'react-native'
 
-import { Text, View} from 'ui/components'
+import { Text, View} from 'ui/component'
 import { useAuth } from 'context/auth'
 
 const App = () => {
