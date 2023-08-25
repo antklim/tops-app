@@ -7,10 +7,11 @@ import { useAuth } from 'context/auth'
 const App = () => {
   const colorScheme = useColorScheme()
 
-  const { signOut } = useAuth()
+  const { user, signOut } = useAuth()
 
   return (
     <View style={styles.container}>
+      <Text>Hello {user?.name}</Text>
       <Text>Scheme name {colorScheme}</Text>
       <Text onPress={signOut}>Sign Out</Text>
       <StatusBar style="auto" />
