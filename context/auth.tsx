@@ -31,7 +31,6 @@ const useProtectedRoute = (user?: User) => {
     } else if (user && inAuthGroup) {
       router.replace('/')
     }
-
   }, [user, segments])
 }
 
@@ -45,7 +44,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
       value={{
         signIn: () => setUser({ name: 'John Doe' }),
         signOut: () => setUser(undefined),
-        user
+        user,
       }}>
       {children}
     </AuthContext.Provider>

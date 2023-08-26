@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "build": "tsc",
-    "lint": "echo \"No linting configured\"",
+    "lint": "eslint .",
     "test": "jest --passWithNoTests",
     "start": "expo start",
     "android": "expo start --android",
@@ -29,6 +29,8 @@
   "devDependencies": {
     "@babel/core": "^7.22.11",
     "@types/react": "~18.2.21",
+    "eslint": "^8.47.0",
+    "eslint-config-universe": "^12.0.0",
     "typescript": "^5.2.2"
   },
   "private": true
