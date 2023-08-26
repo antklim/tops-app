@@ -1,3 +1,10 @@
 root: true
 extends:
   - universe/native
+rules:
+  import/order: off
+  no-console:
+    - error
+    - allow:
+      - warn
+      - error
