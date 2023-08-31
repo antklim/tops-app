@@ -3,16 +3,12 @@ import { LoginProps } from '..'
 
 export { magic } from './client'
 
-export const isLoggedIn = async () => {
-  throw new Error('Not implemented')
-}
+export const isLoggedIn = async () => await magic.user.isLoggedIn()
 
-export const getInfo = async () => {
-  throw new Error('Not implemented')
-}
+export const getInfo = async () => await magic.user.getInfo()
 
-export const login = async (props: LoginProps) => {
-  throw new Error('Not implemented')
+export const login = async ({ email }: LoginProps) => {
+  await magic.auth.loginWithMagicLink({ email })
 }
 
 export const logout = async () => {

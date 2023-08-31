@@ -1,8 +1,8 @@
-export type LoginMethod = 'apple' | 'email'
+export type LoginMethod = 'email'
 
 export interface LoginProps {
   method: LoginMethod
-  email?: string
+  email: string
 }
 
 export interface Auth {
