@@ -1,14 +1,15 @@
 import { magic } from './client'
-import { LoginProps } from '..'
-
-export { magic } from './client'
+import { type LoginProps, type UserInfo } from '..'
 
 export const isLoggedIn = async () => await magic.user.isLoggedIn()
 
-export const getInfo = async () => await magic.user.getInfo()
+export const getInfo = async (): Promise<UserInfo> => {
+  const { email } = await magic.user.getInfo()
+  return { email: email ?? '' }
+}
 
 export const login = async ({ email }: LoginProps) => {
-  await magic.auth.loginWithMagicLink({ email })
+  await magic.auth.loginWithEmailOTP({ email })
 }
 
 export const logout = async () => {
