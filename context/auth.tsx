@@ -31,9 +31,6 @@ export const useAuth = () => useContext(AuthContext)
 const useProtectedRoute = (user: User | null) => {
   const segments = useSegments()
 
-  // TODO: check if user is logged in with authProvider
-  // If logged in then set user and redirect to home
-
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
 

@@ -15,7 +15,7 @@ export { ErrorBoundary } from 'expo-router'
 
 const authProvider = auth()
 
-// SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync()
 
 // TODO: use magic.Relayer conditionally
 // TODO: set local environment to be able to use local auth provider
@@ -45,28 +45,22 @@ const Layout = ({ signedIn, userInfo }: LayoutProps) => {
 const RootLayout = () => {
   const { loaded, signedIn, userInfo, error } = useUserInfo(authProvider)
 
-  magic.user.isLoggedIn().then((isLoggedIn) => {
-    console.log('isLoggedIn', isLoggedIn)
-    if (isLoggedIn) {
-      magic.user.getInfo().then((info) => {
-        console.log({ info })
-      })
-    }
-  })
-
-  console.log('RootLayout', { loaded, signedIn, userInfo, error })
-
   useEffect(() => {
     if (error) throw error
   }, [error])
 
   useEffect(() => {
     if (loaded) {
-      // SplashScreen.hideAsync()
+      SplashScreen.hideAsync()
     }
   }, [loaded])
 
-  if (!loaded) return null
+  if (!loaded)
+    return (
+      <SafeAreaProvider>
+        <magic.Relayer />
+      </SafeAreaProvider>
+    )
 
   return <Layout signedIn={signedIn} userInfo={userInfo} />
 }
