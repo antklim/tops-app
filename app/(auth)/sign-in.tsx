@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, TextInput } from 'react-native'
+import { ActivityIndicator, Pressable, StyleSheet, TextInput } from 'react-native'
 import { useAuth } from 'context/auth'
 import { Text, View } from 'ui/component'
 import { useState } from 'react'
@@ -8,16 +8,16 @@ const SignIn = () => {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [signInEnabled, setSignInEnabled] = useState(true)
+  const [signingIn, setSigningIn] = useState(false)
 
   const submitSignIn = async () => {
-    setSignInEnabled(false)
+    setSigningIn(true)
 
     try {
       await signIn({ name, email })
     } catch {
     } finally {
-      setSignInEnabled(true)
+      setSigningIn(false)
     }
   }
 
@@ -27,7 +27,10 @@ const SignIn = () => {
     <View style={styles.container}>
       <TextInput style={styles.input} placeholder="Name" autoCapitalize="none" onChangeText={setName} />
       <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail} />
-      <Pressable onPress={submitSignIn} disabled={!signInEnabled}>
+
+      {signingIn && <ActivityIndicator />}
+
+      <Pressable onPress={submitSignIn} disabled={signingIn}>
         <Text>Sign In</Text>
       </Pressable>
     </View>
