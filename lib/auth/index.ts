@@ -1,4 +1,4 @@
-import { isLoggedIn, getInfo, login, logout } from './magic'
+import { isSignedIn, getInfo, signIn, signOut } from './magic'
 
 export type LoginMethod = 'email'
 
@@ -12,19 +12,19 @@ export interface UserInfo {
 }
 
 export interface Auth {
-  isLoggedIn: () => Promise<boolean>
+  isSignedIn: () => Promise<boolean>
   getInfo: () => Promise<UserInfo>
-  login: (props: LoginProps) => Promise<void>
-  logout: () => Promise<void>
+  signIn: (props: LoginProps) => Promise<void>
+  signOut: () => Promise<void>
 }
 
 export const auth = (): Auth => {
   // TODO: Add support for other auth providers: local auth
 
   return {
-    isLoggedIn,
+    isSignedIn,
     getInfo,
-    login,
-    logout,
+    signIn,
+    signOut,
   }
 }

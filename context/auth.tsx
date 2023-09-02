@@ -53,11 +53,11 @@ export const AuthProvider = ({ children }: { children: any }) => {
     <AuthContext.Provider
       value={{
         signIn: async ({ email, name }) => {
-          await authProvider.login({ method: 'email', email })
+          await authProvider.signIn({ method: 'email', email })
           setUser({ name })
         },
         signOut: async () => {
-          await authProvider.logout()
+          await authProvider.signOut()
           setUser(undefined)
         },
         user,
