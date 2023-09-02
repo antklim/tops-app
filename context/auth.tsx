@@ -1,6 +1,6 @@
 import { router, useSegments } from 'expo-router'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { auth } from 'lib/auth'
+import { type UserInfo, auth } from 'lib/auth'
 
 const authProvider = auth()
 
@@ -11,7 +11,7 @@ interface User {
 interface AuthContextShape {
   signIn: (props: { name: string; email: string }) => Promise<void>
   signOut: () => Promise<void>
-  user?: User
+  user: User | null
 }
 
 const defaultAuthContext: AuthContextShape = {
@@ -21,17 +21,15 @@ const defaultAuthContext: AuthContextShape = {
   signOut: async () => {
     Promise.resolve()
   },
+  user: null,
 }
 
 const AuthContext = createContext<AuthContextShape>(defaultAuthContext)
 
 export const useAuth = () => useContext(AuthContext)
 
-const useProtectedRoute = (user?: User) => {
+const useProtectedRoute = (user: User | null) => {
   const segments = useSegments()
-
-  // TODO: check if user is logged in with authProvider
-  // If logged in then set user and redirect to home
 
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
@@ -44,8 +42,17 @@ const useProtectedRoute = (user?: User) => {
   }, [user, segments])
 }
 
-export const AuthProvider = ({ children }: { children: any }) => {
-  const [user, setUser] = useState<User>()
+interface AuthProviderProps {
+  children: any
+  value: {
+    signedIn: boolean
+    userInfo?: UserInfo
+  }
+}
+
+export const AuthProvider = ({ children, value: { signedIn } }: AuthProviderProps) => {
+  const u: User | null = signedIn ? { name: '-' } : null
+  const [user, setUser] = useState<User | null>(u)
 
   useProtectedRoute(user)
 
@@ -58,7 +65,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
         },
         signOut: async () => {
           await authProvider.signOut()
-          setUser(undefined)
+          setUser(null)
         },
         user,
       }}>
