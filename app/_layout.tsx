@@ -22,7 +22,7 @@ interface LayoutProps {
   userProfile?: Profile // user profile stored locally
 }
 
-const Layout = ({ authInfo, signedIn }: LayoutProps) => {
+const Layout = ({ authInfo, signedIn, userProfile }: LayoutProps) => {
   const colorScheme = useColorScheme()
 
   const theme = colorScheme === 'light' ? LightTheme : DarkTheme
@@ -40,22 +40,24 @@ const Layout = ({ authInfo, signedIn }: LayoutProps) => {
 }
 
 const RootLayout = () => {
-  const { profile } = useProfile()
-  const { authInfo, error, loaded, signedIn } = useAuthInfo(auth)
+  const { authInfo, signedIn, loaded: authInfoLoaded, error: authInfoError } = useAuthInfo(auth)
+  const { profile, loaded: profileLoaded, error: profileError } = useProfile()
 
   useEffect(() => {
-    if (error) throw error
-  }, [error])
+    if (authInfoError) throw authInfoError
+    if (profileError) throw profileError
+  }, [authInfoError, profileError])
 
   useEffect(() => {
-    if (loaded) {
+    if (authInfoLoaded && profileLoaded) {
       SplashScreen.hideAsync()
     }
-  }, [loaded])
+  }, [authInfoLoaded, profileLoaded])
 
-  if (!loaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
+  if (!authInfoLoaded || !profileLoaded)
+    return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
 
-  return <Layout signedIn={signedIn} authInfo={authInfo} />
+  return <Layout signedIn={signedIn} authInfo={authInfo} userProfile={profile} />
 }
 
 export default RootLayout

@@ -1,8 +1,8 @@
-import { type LoginProps, type UserInfo } from '..'
+import { type LoginProps, type AuthInfo } from '..'
 
 export const isSignedIn = async () => false // TODO: use test flag to set it
 
-export const getInfo = async (): Promise<UserInfo> => ({ email: 'test@tops.app' })
+export const getInfo = async (): Promise<AuthInfo> => ({ email: 'test@tops.app' })
 
 export const signIn = async (props: LoginProps) =>
   new Promise<void>((resolve) => {

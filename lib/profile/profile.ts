@@ -14,6 +14,7 @@ export const setProfile = async (profile: Profile): Promise<void> => {
   await AsyncStorage.multiSet([[`${scope}:name`, profile.name]])
 }
 
+// should be used when user is closing an account
 export const clearProfile = async (): Promise<void> => {
   await AsyncStorage.multiRemove([`${scope}:name`])
 }
