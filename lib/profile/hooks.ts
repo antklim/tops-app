@@ -12,8 +12,6 @@ type UseProfile = () => {
   error?: Error
 }
 
-// TODO: add unit tests
-
 export const useProfile: UseProfile = () => {
   const [loaded, setLoaded] = useState(false)
   const [profile, setProfile] = useState<Profile>()
