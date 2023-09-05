@@ -1,4 +1,6 @@
-import { isSignedIn, getInfo, signIn, signOut } from './magic'
+import { type FC } from 'react'
+import * as devAuth from './dev'
+import * as magicAuth from './magic'
 
 export type LoginMethod = 'email'
 
@@ -12,19 +14,13 @@ export interface UserInfo {
 }
 
 export interface Auth {
+  Component?: FC
   isSignedIn: () => Promise<boolean>
   getInfo: () => Promise<UserInfo>
   signIn: (props: LoginProps) => Promise<void>
   signOut: () => Promise<void>
 }
 
-export const auth = (): Auth => {
-  // TODO: Add support for other auth providers: local auth
+export const auth = (): Auth => (process.env.EXPO_PUBLIC_AUTH_API_KEY ? magicAuth : devAuth)
 
-  return {
-    isSignedIn,
-    getInfo,
-    signIn,
-    signOut,
-  }
-}
+export { useUserInfo } from './authHooks'
