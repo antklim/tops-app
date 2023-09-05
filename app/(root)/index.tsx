@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, useColorScheme } from 'react-native'
+import { useState } from 'react'
+import { ActivityIndicator, Pressable, StyleSheet, useColorScheme } from 'react-native'
 
 import { Text, View } from 'ui/component'
 import { useAuth } from 'context/auth'
@@ -8,12 +9,30 @@ const App = () => {
   const colorScheme = useColorScheme()
 
   const { user, signOut } = useAuth()
+  const [signingOut, setSigningOut] = useState(false)
+
+  const submitSignOut = async () => {
+    setSigningOut(true)
+
+    try {
+      await signOut()
+    } catch {
+    } finally {
+      setSigningOut(false)
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Text>Hello {user?.name}</Text>
       <Text>Scheme name {colorScheme}</Text>
-      <Text onPress={signOut}>Sign Out</Text>
+
+      {signingOut && <ActivityIndicator />}
+
+      <Pressable onPress={submitSignOut} disabled={signingOut}>
+        <Text>Sign Out</Text>
+      </Pressable>
+
       <StatusBar style="auto" />
     </View>
   )
