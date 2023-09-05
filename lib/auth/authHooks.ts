@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Auth, UserInfo } from '.'
 
-type UseUserInfo = (auth: Auth) => {
+type UseUserInfo = (auth: Pick<Auth, 'getInfo' | 'isSignedIn'>) => {
   loaded: boolean
   signedIn: boolean
   userInfo?: UserInfo

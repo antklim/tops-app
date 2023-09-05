@@ -6,19 +6,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { DarkTheme, LightTheme } from 'ui/theme'
 import { AuthProvider } from 'context/auth'
-import { magic } from 'lib/auth/magic/client'
-import { useUserInfo } from 'lib/auth/authHooks'
-import { type UserInfo, auth } from 'lib/auth'
+import { type UserInfo, auth as authFactory, useUserInfo } from 'lib/auth'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
 
-const authProvider = auth()
+const auth = authFactory()
 
 SplashScreen.preventAutoHideAsync()
-
-// TODO: use magic.Relayer conditionally
-// TODO: set local environment to be able to use local auth provider
 
 interface LayoutProps {
   signedIn: boolean
@@ -34,7 +29,7 @@ const Layout = ({ signedIn, userInfo }: LayoutProps) => {
     <ThemeProvider value={theme}>
       <AuthProvider value={{ signedIn, userInfo }}>
         <SafeAreaProvider>
-          <magic.Relayer />
+          {auth.Component && <auth.Component />}
           <Slot />
         </SafeAreaProvider>
       </AuthProvider>
@@ -43,7 +38,7 @@ const Layout = ({ signedIn, userInfo }: LayoutProps) => {
 }
 
 const RootLayout = () => {
-  const { loaded, signedIn, userInfo, error } = useUserInfo(authProvider)
+  const { loaded, signedIn, userInfo, error } = useUserInfo(auth)
 
   useEffect(() => {
     if (error) throw error
@@ -55,12 +50,7 @@ const RootLayout = () => {
     }
   }, [loaded])
 
-  if (!loaded)
-    return (
-      <SafeAreaProvider>
-        <magic.Relayer />
-      </SafeAreaProvider>
-    )
+  if (!loaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
 
   return <Layout signedIn={signedIn} userInfo={userInfo} />
 }

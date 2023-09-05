@@ -1,3 +1,4 @@
+import { type FC } from 'react'
 import * as devAuth from './dev'
 import * as magicAuth from './magic'
 
@@ -13,6 +14,7 @@ export interface UserInfo {
 }
 
 export interface Auth {
+  Component?: FC
   isSignedIn: () => Promise<boolean>
   getInfo: () => Promise<UserInfo>
   signIn: (props: LoginProps) => Promise<void>
@@ -20,3 +22,5 @@ export interface Auth {
 }
 
 export const auth = (): Auth => (process.env.EXPO_PUBLIC_AUTH_API_KEY ? magicAuth : devAuth)
+
+export { useUserInfo } from './authHooks'
