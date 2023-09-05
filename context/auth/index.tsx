@@ -1,5 +1,5 @@
 import { router, useSegments } from 'expo-router'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { type ReactNode, createContext, useContext, useEffect, useState, FC } from 'react'
 import { type Auth, type AuthInfo } from 'lib/auth'
 
 interface User {
@@ -42,7 +42,7 @@ const useProtectedRoute = (user: User | null) => {
 
 interface AuthProviderProps {
   auth: Pick<Auth, 'signIn' | 'signOut'>
-  children: any
+  children: ReactNode
   value: {
     authInfo?: AuthInfo
     signedIn: boolean
