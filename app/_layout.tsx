@@ -6,7 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { DarkTheme, LightTheme } from 'ui/theme'
 import { AuthProvider } from 'context/auth'
-import { type UserInfo, auth as authFactory, useUserInfo } from 'lib/auth'
+import { type AuthInfo, auth as authFactory, useAuthInfo } from 'lib/auth'
+import { type Profile, useProfile } from 'lib/profile'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -17,17 +18,18 @@ SplashScreen.preventAutoHideAsync()
 
 interface LayoutProps {
   signedIn: boolean
-  userInfo?: UserInfo
+  authInfo?: AuthInfo // user info from the auth provider
+  userProfile?: Profile // user profile stored locally
 }
 
-const Layout = ({ signedIn, userInfo }: LayoutProps) => {
+const Layout = ({ authInfo, signedIn }: LayoutProps) => {
   const colorScheme = useColorScheme()
 
   const theme = colorScheme === 'light' ? LightTheme : DarkTheme
 
   return (
     <ThemeProvider value={theme}>
-      <AuthProvider auth={auth} value={{ signedIn, userInfo }}>
+      <AuthProvider auth={auth} value={{ authInfo, signedIn }}>
         <SafeAreaProvider>
           {auth.Component && <auth.Component />}
           <Slot />
@@ -38,7 +40,8 @@ const Layout = ({ signedIn, userInfo }: LayoutProps) => {
 }
 
 const RootLayout = () => {
-  const { loaded, signedIn, userInfo, error } = useUserInfo(auth)
+  const { profile } = useProfile()
+  const { authInfo, error, loaded, signedIn } = useAuthInfo(auth)
 
   useEffect(() => {
     if (error) throw error
@@ -52,7 +55,7 @@ const RootLayout = () => {
 
   if (!loaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
 
-  return <Layout signedIn={signedIn} userInfo={userInfo} />
+  return <Layout signedIn={signedIn} authInfo={authInfo} />
 }
 
 export default RootLayout

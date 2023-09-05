@@ -1,6 +1,6 @@
 import { router, useSegments } from 'expo-router'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { type Auth, type UserInfo } from 'lib/auth'
+import { type Auth, type AuthInfo } from 'lib/auth'
 
 interface User {
   name: string
@@ -44,8 +44,8 @@ interface AuthProviderProps {
   auth: Pick<Auth, 'signIn' | 'signOut'>
   children: any
   value: {
+    authInfo?: AuthInfo
     signedIn: boolean
-    userInfo?: UserInfo
   }
 }
 
