@@ -27,7 +27,7 @@ const Layout = ({ signedIn, userInfo }: LayoutProps) => {
 
   return (
     <ThemeProvider value={theme}>
-      <AuthProvider value={{ signedIn, userInfo }}>
+      <AuthProvider auth={auth} value={{ signedIn, userInfo }}>
         <SafeAreaProvider>
           {auth.Component && <auth.Component />}
           <Slot />

@@ -1,8 +1,6 @@
 import { router, useSegments } from 'expo-router'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { type UserInfo, auth } from 'lib/auth'
-
-const authProvider = auth()
+import { type Auth, type UserInfo } from 'lib/auth'
 
 interface User {
   name: string
@@ -43,6 +41,7 @@ const useProtectedRoute = (user: User | null) => {
 }
 
 interface AuthProviderProps {
+  auth: Pick<Auth, 'signIn' | 'signOut'>
   children: any
   value: {
     signedIn: boolean
@@ -50,7 +49,7 @@ interface AuthProviderProps {
   }
 }
 
-export const AuthProvider = ({ children, value: { signedIn } }: AuthProviderProps) => {
+export const AuthProvider = ({ auth, children, value: { signedIn } }: AuthProviderProps) => {
   const u: User | null = signedIn ? { name: '-' } : null
   const [user, setUser] = useState<User | null>(u)
 
@@ -60,11 +59,11 @@ export const AuthProvider = ({ children, value: { signedIn } }: AuthProviderProp
     <AuthContext.Provider
       value={{
         signIn: async ({ email, name }) => {
-          await authProvider.signIn({ method: 'email', email })
+          await auth.signIn({ method: 'email', email })
           setUser({ name })
         },
         signOut: async () => {
-          await authProvider.signOut()
+          await auth.signOut()
           setUser(null)
         },
         user,
