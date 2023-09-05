@@ -23,4 +23,4 @@ export interface Auth {
 
 export const auth = (): Auth => (process.env.EXPO_PUBLIC_AUTH_API_KEY ? magicAuth : devAuth)
 
-export { useAuthInfo } from './authHooks'
+export { useAuthInfo } from './hooks'
