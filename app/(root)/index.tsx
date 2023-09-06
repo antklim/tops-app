@@ -4,11 +4,13 @@ import { ActivityIndicator, Pressable, StyleSheet, useColorScheme } from 'react-
 
 import { Text, View } from 'ui/component'
 import { useAuth } from 'context/auth'
+import { useProfile } from 'context/profile'
 
 const App = () => {
   const colorScheme = useColorScheme()
 
-  const { user, signOut } = useAuth()
+  const { signOut } = useAuth()
+  const { profile } = useProfile()
   const [signingOut, setSigningOut] = useState(false)
 
   const submitSignOut = async () => {
@@ -24,7 +26,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Hello {user?.name}</Text>
+      <Text>Hello {profile?.name}</Text>
       <Text>Scheme name {colorScheme}</Text>
 
       {signingOut && <ActivityIndicator />}

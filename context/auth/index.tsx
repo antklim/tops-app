@@ -1,15 +1,12 @@
 import { router, useSegments } from 'expo-router'
-import { type ReactNode, createContext, useContext, useEffect, useState, FC } from 'react'
-import { type Auth, type AuthInfo } from 'lib/auth'
-
-interface User {
-  name: string
-}
+import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import { type Auth } from 'lib/auth'
+import { clearProfile, setProfile } from 'lib/profile'
 
 interface AuthContextShape {
   signIn: (props: { name: string; email: string }) => Promise<void>
   signOut: () => Promise<void>
-  user: User | null
+  signedIn: boolean
 }
 
 const defaultAuthContext: AuthContextShape = {
@@ -19,54 +16,52 @@ const defaultAuthContext: AuthContextShape = {
   signOut: async () => {
     Promise.resolve()
   },
-  user: null,
+  signedIn: false,
 }
 
 const AuthContext = createContext<AuthContextShape>(defaultAuthContext)
 
 export const useAuth = () => useContext(AuthContext)
 
-const useProtectedRoute = (user: User | null) => {
+const useProtectedRoute = (signedIn: boolean) => {
   const segments = useSegments()
 
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
 
-    if (!user && !inAuthGroup) {
+    if (!signedIn && !inAuthGroup) {
       router.replace('/sign-in')
-    } else if (user && inAuthGroup) {
+    } else if (signedIn && inAuthGroup) {
       router.replace('/')
     }
-  }, [user, segments])
+  }, [signedIn, segments])
 }
 
 interface AuthProviderProps {
   auth: Pick<Auth, 'signIn' | 'signOut'>
   children: ReactNode
-  value: {
-    authInfo?: AuthInfo
-    signedIn: boolean
-  }
+  signedIn: boolean
 }
 
-export const AuthProvider = ({ auth, children, value: { signedIn } }: AuthProviderProps) => {
-  const u: User | null = signedIn ? { name: '-' } : null
-  const [user, setUser] = useState<User | null>(u)
+export const AuthProvider = ({ auth, children, signedIn }: AuthProviderProps) => {
+  const [ctxSignedIn, setCtxSignedIn] = useState(signedIn)
 
-  useProtectedRoute(user)
+  useProtectedRoute(ctxSignedIn)
 
   return (
     <AuthContext.Provider
       value={{
         signIn: async ({ email, name }) => {
           await auth.signIn({ method: 'email', email })
-          setUser({ name })
+          await setProfile({ name })
+          setCtxSignedIn(true)
         },
         signOut: async () => {
           await auth.signOut()
-          setUser(null)
+          await clearProfile()
+          setCtxSignedIn(false)
         },
-        user,
+        signedIn: ctxSignedIn,
       }}>
       {children}
     </AuthContext.Provider>

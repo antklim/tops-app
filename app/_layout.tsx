@@ -6,8 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { DarkTheme, LightTheme } from 'ui/theme'
 import { AuthProvider } from 'context/auth'
-import { type AuthInfo, auth as authFactory, useAuthInfo } from 'lib/auth'
-import { type Profile, useProfile } from 'lib/profile'
+import { auth as authFactory, useAuthInfo } from 'lib/auth'
+import { ProfileProvider } from 'context/profile'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -18,46 +18,43 @@ SplashScreen.preventAutoHideAsync()
 
 interface LayoutProps {
   signedIn: boolean
-  authInfo?: AuthInfo // user info from the auth provider
-  userProfile?: Profile // user profile stored locally
 }
 
-const Layout = ({ authInfo, signedIn, userProfile }: LayoutProps) => {
+const Layout = ({ signedIn }: LayoutProps) => {
   const colorScheme = useColorScheme()
 
   const theme = colorScheme === 'light' ? LightTheme : DarkTheme
 
   return (
     <ThemeProvider value={theme}>
-      <AuthProvider auth={auth} value={{ authInfo, signedIn }}>
-        <SafeAreaProvider>
-          {auth.Component && <auth.Component />}
-          <Slot />
-        </SafeAreaProvider>
+      <AuthProvider auth={auth} signedIn={signedIn}>
+        <ProfileProvider signedIn={signedIn}>
+          <SafeAreaProvider>
+            {auth.Component && <auth.Component />}
+            <Slot />
+          </SafeAreaProvider>
+        </ProfileProvider>
       </AuthProvider>
     </ThemeProvider>
   )
 }
 
 const RootLayout = () => {
-  const { authInfo, signedIn, loaded: authInfoLoaded, error: authInfoError } = useAuthInfo(auth)
-  const { profile, loaded: profileLoaded, error: profileError } = useProfile()
+  const { signedIn, loaded, error } = useAuthInfo(auth)
 
   useEffect(() => {
-    if (authInfoError) throw authInfoError
-    if (profileError) throw profileError
-  }, [authInfoError, profileError])
+    if (error) throw error
+  }, [error])
 
   useEffect(() => {
-    if (authInfoLoaded && profileLoaded) {
+    if (loaded) {
       SplashScreen.hideAsync()
     }
-  }, [authInfoLoaded, profileLoaded])
+  }, [loaded])
 
-  if (!authInfoLoaded || !profileLoaded)
-    return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
+  if (!loaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
 
-  return <Layout signedIn={signedIn} authInfo={authInfo} userProfile={profile} />
+  return <Layout signedIn={signedIn} />
 }
 
 export default RootLayout
