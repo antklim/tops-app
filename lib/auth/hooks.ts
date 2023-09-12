@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
-import { Auth, UserInfo } from '.'
+import { type Auth, type AuthInfo } from '.'
 
-type UseUserInfo = (auth: Pick<Auth, 'getInfo' | 'isSignedIn'>) => {
+type UseAuthInfo = (auth: Pick<Auth, 'getInfo' | 'isSignedIn'>) => {
+  authInfo?: AuthInfo
+  error?: Error
   loaded: boolean
   signedIn: boolean
-  userInfo?: UserInfo
-  error?: Error
 }
 
 // TODO: add unit tests
 
-export const useUserInfo: UseUserInfo = (auth) => {
+export const useAuthInfo: UseAuthInfo = (auth) => {
   const [loaded, setLoaded] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
-  const [userInfo, setUserInfo] = useState<UserInfo>()
+  const [authInfo, setAuthInfo] = useState<AuthInfo>()
   const [error, setError] = useState<Error>()
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export const useUserInfo: UseUserInfo = (auth) => {
         setSignedIn(v)
 
         if (v) {
-          const userInfo = await auth.getInfo()
-          setUserInfo(userInfo)
+          const authInfo = await auth.getInfo()
+          setAuthInfo(authInfo)
         }
       } catch (err) {
         setError(err as Error)
@@ -34,5 +34,5 @@ export const useUserInfo: UseUserInfo = (auth) => {
     })()
   }, [])
 
-  return { loaded, signedIn, userInfo, error }
+  return { authInfo, error, loaded, signedIn }
 }

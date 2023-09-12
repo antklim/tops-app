@@ -1,7 +1,7 @@
 import { ActivityIndicator, Pressable, StyleSheet, TextInput } from 'react-native'
+import { useState } from 'react'
 import { useAuth } from 'context/auth'
 import { Text, View } from 'ui/component'
-import { useState } from 'react'
 
 const SignIn = () => {
   const { signIn } = useAuth()
