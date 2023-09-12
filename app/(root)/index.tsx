@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
 import { ActivityIndicator, Pressable, StyleSheet, useColorScheme } from 'react-native'
-
-import { Text, View } from 'ui/component'
 import { useAuth } from 'context/auth'
 import { useProfile } from 'context/profile'
+import { Text, View } from 'ui/component'
 
 const App = () => {
   const colorScheme = useColorScheme()

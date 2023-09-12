@@ -1,4 +1,5 @@
 import { type ReactNode, createContext, useContext, useState, useEffect } from 'react'
+import { useAuth } from 'context/auth'
 import { getProfile } from 'lib/profile'
 
 interface Profile {
@@ -19,16 +20,19 @@ export const useProfile = () => useContext(ProfileContext)
 
 interface ProfileProviderProps {
   children: ReactNode
-  signedIn: boolean
 }
 
-export const ProfileProvider = ({ children, signedIn }: ProfileProviderProps) => {
+export const ProfileProvider = ({ children }: ProfileProviderProps) => {
+  const { signedIn } = useAuth()
   const [profile, setProfile] = useState<Profile | null>(null)
 
   useEffect(() => {
-    ;(async () => {
-      if (!signedIn) return
+    if (!signedIn) {
+      setProfile(null)
+      return
+    }
 
+    ;(async () => {
       try {
         const p = await getProfile()
         setProfile(p)

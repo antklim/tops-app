@@ -3,11 +3,10 @@ import { Slot, SplashScreen } from 'expo-router'
 import React, { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-
-import { DarkTheme, LightTheme } from 'ui/theme'
 import { AuthProvider } from 'context/auth'
-import { auth as authFactory, useAuthInfo } from 'lib/auth'
 import { ProfileProvider } from 'context/profile'
+import { auth as authFactory, useAuthInfo } from 'lib/auth'
+import { DarkTheme, LightTheme } from 'ui/theme'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -28,7 +27,7 @@ const Layout = ({ signedIn }: LayoutProps) => {
   return (
     <ThemeProvider value={theme}>
       <AuthProvider auth={auth} signedIn={signedIn}>
-        <ProfileProvider signedIn={signedIn}>
+        <ProfileProvider>
           <SafeAreaProvider>
             {auth.Component && <auth.Component />}
             <Slot />
