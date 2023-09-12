@@ -21,12 +21,16 @@ const SignIn = () => {
     }
   }
 
-  // TODO: use text content type on iOS for inputs
-
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Name" autoCapitalize="none" onChangeText={setName} />
-      <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail} />
+      <TextInput style={styles.input} autoCapitalize="none" placeholder="Name" onChangeText={setName} />
+      <TextInput
+        style={styles.input}
+        autoCapitalize="none"
+        inputMode="email"
+        placeholder="Email"
+        onChangeText={setEmail}
+      />
 
       {signingIn && <ActivityIndicator />}
 
