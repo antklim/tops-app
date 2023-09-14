@@ -12,7 +12,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@magic-sdk/react-native-expo": "^20.3.1",
+    "@magic-sdk/react-native-expo": "^20.4.0",
     "@react-native-async-storage/async-storage": "^1.19.3",
     "expo": "~49.0.10",
     "expo-constants": "~15.0.0",
