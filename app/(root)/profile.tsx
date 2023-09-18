@@ -1,13 +1,11 @@
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import { ActivityIndicator, Pressable, StyleSheet, useColorScheme } from 'react-native'
+import { ActivityIndicator, Pressable, StyleSheet } from 'react-native'
 import { useAuth } from 'context/auth'
 import { useProfile } from 'context/profile'
 import { Text, View } from 'ui/component'
 
 const App = () => {
-  const colorScheme = useColorScheme()
-
   const { signOut } = useAuth()
   const { profile } = useProfile()
   const [signingOut, setSigningOut] = useState(false)
@@ -27,7 +25,6 @@ const App = () => {
     <View style={styles.container}>
       <Text>This is profile page</Text>
       <Text>Hello {profile?.name}</Text>
-      <Text>Scheme name {colorScheme}</Text>
 
       {signingOut && <ActivityIndicator />}
 

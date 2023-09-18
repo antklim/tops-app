@@ -10,7 +10,7 @@ interface TabBarIconProps {
 const TabBarIcon = (props: TabBarIconProps) => <Feather size={28} style={{ marginBottom: -3 }} {...props} />
 
 export const unstable_settings = {
-  initialRouteName: 'home',
+  initialRouteName: 'index',
 }
 
 const RootLayout = () => {
@@ -22,7 +22,7 @@ const RootLayout = () => {
         tabBarActiveTintColor: colors.background,
       }}>
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
