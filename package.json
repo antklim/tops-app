@@ -14,7 +14,7 @@
   "dependencies": {
     "@magic-sdk/react-native-expo": "^20.4.0",
     "@react-native-async-storage/async-storage": "^1.19.3",
-    "expo": "~49.0.10",
+    "expo": "~49.0.11",
     "expo-constants": "~15.1.0",
     "expo-linking": "~6.0.0",
     "expo-router": "2.0.6",
