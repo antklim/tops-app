@@ -32,7 +32,7 @@ const useProtectedRoute = (signedIn: boolean) => {
     if (!signedIn && !inAuthGroup) {
       router.replace('/sign-in')
     } else if (signedIn && inAuthGroup) {
-      router.replace('/')
+      router.replace('/(root)')
     }
   }, [signedIn, segments])
 }
