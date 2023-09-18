@@ -38,7 +38,7 @@ const Layout = ({ signedIn }: LayoutProps) => {
   )
 }
 
-const RootLayout = () => {
+const AppLayout = () => {
   const { signedIn, loaded, error } = useAuthInfo(auth)
 
   useEffect(() => {
@@ -56,4 +56,4 @@ const RootLayout = () => {
   return <Layout signedIn={signedIn} />
 }
 
-export default RootLayout
+export default AppLayout

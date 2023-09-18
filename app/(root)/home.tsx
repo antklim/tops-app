@@ -25,6 +25,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Text>This is home page</Text>
       <Text>Hello {profile?.name}</Text>
       <Text>Scheme name {colorScheme}</Text>
 
