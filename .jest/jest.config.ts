@@ -1,6 +1,6 @@
 export default {
   moduleDirectories: ['node_modules'],
-  modulePath: ['<rootDir>'],
+  modulePaths: ['<rootDir>'],
   preset: 'jest-expo',
   rootDir: '..',
   roots: ['<rootDir>'],
