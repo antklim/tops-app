@@ -1,18 +1,24 @@
-// import { renderHook } from '@testing-library/react-native'
-// import { useAuthInfo } from '.'
+import { renderHook } from '@testing-library/react-native'
+import { useAuthInfo } from '.'
+import { delayedResolve } from 'test/delayedResult'
 
-describe.skip('auth/useAuthInfo hook', () => {
+describe('auth/useAuthInfo hook', () => {
   test('returns state while loading', () => {
-    // const auth = {
-    //   getInfo: () => Promise.resolve({ email: '' }),
-    //   isSignedIn: () => Promise.resolve(false),
-    // }
-    // const {
-    //   result: {
-    //     current: { loaded },
-    //   },
-    // } = renderHook(() => useAuthInfo(auth))
-    // expect(loaded).toBe(false)
+    const auth = {
+      getInfo: () => delayedResolve<{ email: string }>({ email: '' }),
+      isSignedIn: () => delayedResolve(false, 200),
+    }
+
+    const {
+      result: {
+        current: { loaded },
+      },
+      unmount,
+    } = renderHook(() => useAuthInfo(auth))
+
+    unmount()
+
+    expect(loaded).toBe(false)
   })
 
   test.todo('returns signed in state when loaded')
