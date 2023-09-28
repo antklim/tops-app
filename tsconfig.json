@@ -4,6 +4,9 @@
     "baseUrl": ".",
     "strict": true
   },
+  "exclude": [
+    "test"
+  ],
   "include": [
     "**/*.ts",
     "**/*.tsx",

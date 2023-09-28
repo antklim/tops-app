@@ -8,8 +8,6 @@ type UseAuthInfo = (auth: Pick<Auth, 'getInfo' | 'isSignedIn'>) => {
   signedIn: boolean
 }
 
-// TODO: add unit tests
-
 export const useAuthInfo: UseAuthInfo = (auth) => {
   const [loaded, setLoaded] = useState(false)
   const [signedIn, setSignedIn] = useState(false)

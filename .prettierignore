@@ -1,2 +1,4 @@
 babel.config.js
+tsconfig.json
+jest.config.ts
 *.d.ts
