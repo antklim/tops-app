@@ -12,6 +12,14 @@ module.exports = function(api) {
           }
         }
       ],
+      [
+        '@tamagui/babel-plugin',
+        {
+          components: ['tamagui'],
+          config: "./.tamagui",
+          logTimings: true,
+        }
+      ],
       'expo-router/babel'
     ],
   };
