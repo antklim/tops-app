@@ -10,6 +10,7 @@ import { auth as authFactory, useAuthInfo } from 'lib/auth'
 import { DarkTheme, LightTheme } from 'ui/theme'
 
 import uiConfig from '../.tamagui'
+import { useFonts } from 'expo-font'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -45,6 +46,7 @@ const Layout = ({ signedIn }: LayoutProps) => {
 
 const AppLayout = () => {
   const { signedIn, loaded, error } = useAuthInfo(auth)
+  const [fontsLoaded] = useFonts(tamaguiFonts)
 
   useEffect(() => {
     if (error) throw error
