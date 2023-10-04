@@ -20,12 +20,6 @@ module.exports = function(api) {
           logTimings: true,
         }
       ],
-      [
-        'transform-inline-environment-variables',
-        {
-          include: ['TAMAGUI_TARGET'],
-        }
-      ],
       'react-native-reanimated/plugin',
       'expo-router/babel'
     ],

@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@react-navigation/native'
+import { useFonts } from 'expo-font'
 import { Slot, SplashScreen } from 'expo-router'
 import React, { useEffect } from 'react'
 import { Platform, useColorScheme } from 'react-native'
@@ -10,7 +11,7 @@ import { auth as authFactory, useAuthInfo } from 'lib/auth'
 import { DarkTheme, LightTheme } from 'ui/theme'
 
 import uiConfig from '../.tamagui'
-import { useFonts } from 'expo-font'
+import { tamaguiFonts } from '../.tamagui/tamaguiFonts'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -53,12 +54,12 @@ const AppLayout = () => {
   }, [error])
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && fontsLoaded) {
       SplashScreen.hideAsync()
     }
-  }, [loaded])
+  }, [loaded, fontsLoaded])
 
-  if (!loaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
+  if (!loaded || !fontsLoaded) return <SafeAreaProvider>{auth.Component && <auth.Component />}</SafeAreaProvider>
 
   return <Layout signedIn={signedIn} />
 }

@@ -1,7 +1,11 @@
 import { config } from '@tamagui/config/v2-native'
 import { createTamagui } from 'tamagui'
+import fonts from './fonts'
 
-const appConfig = createTamagui(config)
+const appConfig = createTamagui({
+  ...config,
+  fonts,
+})
 
 export type AppConfig = typeof appConfig
 
