@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
 import { ActivityIndicator, Pressable, StyleSheet } from 'react-native'
+import { Button } from 'tamagui'
 import { useAuth } from 'context/auth'
 import { useProfile } from 'context/profile'
 import { Text, View } from 'ui/component'
@@ -31,6 +32,8 @@ const App = () => {
       <Pressable onPress={submitSignOut} disabled={signingOut}>
         <Text>Sign Out</Text>
       </Pressable>
+
+      <Button>Lorem ipsum</Button>
 
       <StatusBar style="auto" />
     </View>

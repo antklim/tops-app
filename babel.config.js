@@ -12,6 +12,15 @@ module.exports = function(api) {
           }
         }
       ],
+      [
+        '@tamagui/babel-plugin',
+        {
+          components: ['tamagui'],
+          config: "./.tamagui",
+          logTimings: true,
+        }
+      ],
+      'react-native-reanimated/plugin',
       'expo-router/babel'
     ],
   };
