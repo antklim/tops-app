@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, useColorScheme } from 'react-native'
-import { Text, View } from 'ui/component'
+import { Text, View } from 'src/ui/component'
 
 const App = () => {
   const colorScheme = useColorScheme()
