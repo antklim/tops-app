@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
 import { ActivityIndicator, Pressable, StyleSheet } from 'react-native'
 import { Button } from 'tamagui'
-import { useAuth } from 'context/auth'
-import { useProfile } from 'context/profile'
-import { Text, View } from 'ui/component'
+import { useAuth } from 'src/context/auth'
+import { useProfile } from 'src/context/profile'
+import { Text, View } from 'src/ui/component'
 
 const App = () => {
   const { signOut } = useAuth()

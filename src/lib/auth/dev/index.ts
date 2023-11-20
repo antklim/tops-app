@@ -1,5 +1,5 @@
 import { type LoginProps, type AuthInfo } from '..'
-import { scope, storage } from 'lib/storage'
+import { scope, storage } from 'src/lib/storage'
 
 export const isSignedIn = async () => {
   const isSignedIn = await storage.getItem(`${scope}:isSignedIn`)

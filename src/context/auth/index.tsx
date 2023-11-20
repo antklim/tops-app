@@ -1,7 +1,7 @@
 import { router, useSegments } from 'expo-router'
 import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { type Auth } from 'lib/auth'
-import { clearProfile, setProfile } from 'lib/profile'
+import { type Auth } from 'src/lib/auth'
+import { clearProfile, setProfile } from 'src/lib/profile'
 
 interface AuthContextShape {
   signIn: (props: { name: string; email: string }) => Promise<void>

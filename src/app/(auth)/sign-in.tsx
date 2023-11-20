@@ -1,7 +1,7 @@
 import { ActivityIndicator, Pressable, StyleSheet, TextInput } from 'react-native'
 import { useState } from 'react'
-import { useAuth } from 'context/auth'
-import { Text, View } from 'ui/component'
+import { useAuth } from 'src/context/auth'
+import { Text, View } from 'src/ui/component'
 
 import { Button, Input, Label, Spinner, XStack, YStack } from 'tamagui'
 

@@ -1,4 +1,4 @@
-import { scope, storage } from 'lib/storage'
+import { scope, storage } from 'src/lib/storage'
 
 interface Profile {
   name: string

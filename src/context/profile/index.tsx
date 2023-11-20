@@ -1,6 +1,6 @@
 import { type ReactNode, createContext, useContext, useState, useEffect } from 'react'
-import { useAuth } from 'context/auth'
-import { getProfile } from 'lib/profile'
+import { useAuth } from 'src/context/auth'
+import { getProfile } from 'src/lib/profile'
 
 interface Profile {
   name: string
