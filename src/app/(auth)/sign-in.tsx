@@ -1,9 +1,7 @@
-import { ActivityIndicator, Pressable, StyleSheet, TextInput } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { useState } from 'react'
 import { useAuth } from 'src/context/auth'
-import { Text, View } from 'src/ui/component'
-
-import { Button, Input, Label, Spinner, XStack, YStack } from 'tamagui'
+import { Button, Input, Spinner, XStack, YStack } from 'tamagui'
 
 const SignIn = () => {
   const { signIn } = useAuth()
@@ -24,22 +22,6 @@ const SignIn = () => {
   }
 
   return (
-    // <View style={styles.container}>
-    //   <TextInput style={styles.input} autoCapitalize="none" placeholder="Name" onChangeText={setName} />
-    //   <TextInput
-    //     style={styles.input}
-    //     autoCapitalize="none"
-    //     inputMode="email"
-    //     placeholder="Email"
-    //     onChangeText={setEmail}
-    //   />
-
-    //   {signingIn && <ActivityIndicator />}
-
-    //   <Pressable onPress={submitSignIn} disabled={signingIn}>
-    //     <Text>Sign In</Text>
-    //   </Pressable>
-    // </View>
     <YStack
       theme="green"
       fullscreen
@@ -67,18 +49,3 @@ const SignIn = () => {
 }
 
 export default SignIn
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    borderWidth: 0.75,
-    borderRadius: 7,
-    margin: 8,
-    padding: 10,
-    width: 300,
-  },
-})

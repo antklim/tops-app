@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import { ActivityIndicator, Pressable, StyleSheet } from 'react-native'
-import { Button } from 'tamagui'
+import { ActivityIndicator } from 'react-native'
+import { Button, Text, YStack } from 'tamagui'
 import { useAuth } from 'src/context/auth'
 import { useProfile } from 'src/context/profile'
-import { Text, View } from 'src/ui/component'
 
 const App = () => {
   const { signOut } = useAuth()
@@ -23,29 +22,29 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <YStack
+      theme="green"
+      fullscreen
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      padding="$3"
+      minWidth={300}
+      space="$4">
       <Text>This is profile page</Text>
       <Text>Hello {profile?.name}</Text>
 
       {signingOut && <ActivityIndicator />}
 
-      <Pressable onPress={submitSignOut} disabled={signingOut}>
+      <Button onPress={submitSignOut} disabled={signingOut} unstyled>
         <Text>Sign Out</Text>
-      </Pressable>
+      </Button>
 
       <Button>Lorem ipsum</Button>
 
       <StatusBar style="auto" />
-    </View>
+    </YStack>
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

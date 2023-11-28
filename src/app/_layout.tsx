@@ -25,14 +25,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ signedIn }: LayoutProps) => {
-  const colorScheme = useColorScheme() ?? 'light'
-
-  const theme = colorScheme === 'light' ? LightTheme : DarkTheme
+  const theme = useColorScheme() ?? 'light'
 
   return (
     <SafeAreaProvider>
-      <TamaguiProvider config={uiConfig} defaultTheme={colorScheme} disableInjectCSS={Platform.OS !== 'web'}>
-        <ThemeProvider value={theme}>
+      <TamaguiProvider config={uiConfig} defaultTheme={theme} disableInjectCSS={Platform.OS !== 'web'}>
+        <ThemeProvider value={theme === 'light' ? LightTheme : DarkTheme}>
           <AuthProvider auth={auth} signedIn={signedIn}>
             <ProfileProvider>
               {auth.Component && <auth.Component />}
