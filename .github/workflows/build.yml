@@ -8,11 +8,13 @@ on:
     branches:
       - main
 
+timeout-minutes: 3
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 3
 
     steps:
       - uses: actions/checkout@v4
