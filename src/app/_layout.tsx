@@ -4,7 +4,7 @@ import { Slot, SplashScreen } from 'expo-router'
 import React, { useEffect } from 'react'
 import { Platform, useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { TamaguiProvider } from 'tamagui'
+import { TamaguiProvider, Theme } from 'tamagui'
 import { AuthProvider } from 'src/context/auth'
 import { ProfileProvider } from 'src/context/profile'
 import { auth as authFactory, useAuthInfo } from 'src/lib/auth'
@@ -31,12 +31,14 @@ const Layout = ({ signedIn }: LayoutProps) => {
     <SafeAreaProvider>
       <TamaguiProvider config={uiConfig} defaultTheme={theme} disableInjectCSS={Platform.OS !== 'web'}>
         <ThemeProvider value={theme === 'light' ? LightTheme : DarkTheme}>
-          <AuthProvider auth={auth} signedIn={signedIn}>
-            <ProfileProvider>
-              {auth.Component && <auth.Component />}
-              <Slot />
-            </ProfileProvider>
-          </AuthProvider>
+          <Theme name="green">
+            <AuthProvider auth={auth} signedIn={signedIn}>
+              <ProfileProvider>
+                {auth.Component && <auth.Component />}
+                <Slot />
+              </ProfileProvider>
+            </AuthProvider>
+          </Theme>
         </ThemeProvider>
       </TamaguiProvider>
     </SafeAreaProvider>

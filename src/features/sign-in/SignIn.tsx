@@ -22,15 +22,7 @@ export const SignIn = () => {
   }
 
   return (
-    <YStack
-      theme="green"
-      fullscreen
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      padding="$3"
-      minWidth={300}
-      space="$4">
+    <YStack fullscreen flex={1} alignItems="center" justifyContent="center" padding="$3" minWidth={300} space="$4">
       <XStack alignItems="center" space="$4">
         <Input flex={1} id="name" placeholder="Name" onChangeText={setName} />
       </XStack>

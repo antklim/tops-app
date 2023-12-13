@@ -6,15 +6,7 @@ export const Home = () => {
   const colorScheme = useColorScheme()
 
   return (
-    <YStack
-      theme="green"
-      fullscreen
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      padding="$3"
-      minWidth={300}
-      space="$4">
+    <YStack fullscreen flex={1} alignItems="center" justifyContent="center" padding="$3" minWidth={300} space="$4">
       <Text>This is home page</Text>
       <Text>Scheme name {colorScheme}</Text>
       <StatusBar style="auto" />
