@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { Button, Text, YStack } from 'tamagui'
@@ -33,8 +32,6 @@ export const Profile = () => {
       </Button>
 
       <Button>Lorem ipsum</Button>
-
-      <StatusBar style="auto" />
     </YStack>
   )
 }
