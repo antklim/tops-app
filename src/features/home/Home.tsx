@@ -1,25 +1,13 @@
-import {
-  Button,
-  Card,
-  CardProps,
-  H2,
-  H5,
-  H6,
-  Heading,
-  Image,
-  ListItem,
-  Paragraph,
-  Separator,
-  XStack,
-  YGroup,
-  YStack,
-} from 'tamagui'
+import { FlatList } from 'react-native'
+import { Button, Card, CardProps, H2, Heading, Image, Paragraph, Spacer, XStack, YStack } from 'tamagui'
 
-interface GymCardProps extends CardProps {
+interface GymData {
   gymName: string
   weekNumber: number
   newClimbsDate: Date
 }
+
+type GymCardProps = CardProps & GymData
 
 const GymCard = ({ gymName, weekNumber, newClimbsDate, ...props }: GymCardProps) => {
   const formattedDate = newClimbsDate.toLocaleDateString('en-GB', {
@@ -55,29 +43,39 @@ const GymCard = ({ gymName, weekNumber, newClimbsDate, ...props }: GymCardProps)
 }
 
 export const Home = () => {
+  const gymData: GymData[] = [
+    {
+      gymName: 'Northcote',
+      weekNumber: 3,
+      newClimbsDate: new Date('2023-11-30'),
+    },
+    {
+      gymName: 'The Lactic Factory',
+      weekNumber: 4,
+      newClimbsDate: new Date('2023-12-02'),
+    },
+  ]
+
   return (
     <YStack fullscreen flex={1} alignItems="center" padding="$3" minWidth={300} space="$4">
       <Heading>Summer Boulder Ladder 2024</Heading>
 
-      <XStack space="$4">
-        <GymCard
-          gymName="Northcote"
-          weekNumber={3}
-          newClimbsDate={new Date('2023-11-30')}
-          size="$5"
-          width={250}
-          height={300}
-        />
-
-        <GymCard
-          gymName="The Lactic Factory"
-          weekNumber={4}
-          newClimbsDate={new Date('2023-12-02')}
-          size="$5"
-          width={250}
-          height={300}
-        />
-      </XStack>
+      <FlatList
+        data={gymData}
+        renderItem={({ item }) => (
+          <GymCard
+            gymName={item.gymName}
+            weekNumber={item.weekNumber}
+            newClimbsDate={item.newClimbsDate}
+            size="$5"
+            width={335}
+            height={340}
+          />
+        )}
+        keyExtractor={(item) => item.gymName}
+        ItemSeparatorComponent={() => <Spacer width="$1" />}
+        contentContainerStyle={{ marginBottom: 'auto' }}
+      />
     </YStack>
   )
 }
