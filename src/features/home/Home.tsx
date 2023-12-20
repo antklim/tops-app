@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native'
 import { Heading, Spacer, YStack } from 'tamagui'
-import { GymCard, GymData } from './GymCard'
+import { GymCard, type GymData } from './GymCard'
 
 export const Home = () => {
   const gymData: GymData[] = [
