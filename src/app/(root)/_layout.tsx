@@ -1,7 +1,7 @@
 import Feather from '@expo/vector-icons/Feather'
-import { useTheme } from '@react-navigation/native'
 import { Tabs } from 'expo-router'
 // import { Home } from '@tamagui/lucide-icons'
+import { useTheme } from 'tamagui'
 
 interface TabBarIconProps {
   name: React.ComponentProps<typeof Feather>['name']
@@ -15,12 +15,12 @@ export const unstable_settings = {
 }
 
 const RootLayout = () => {
-  const { colors } = useTheme()
+  const theme = useTheme()
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.background,
+        tabBarActiveTintColor: theme.colorFocus.get(),
       }}>
       <Tabs.Screen
         name="index"
