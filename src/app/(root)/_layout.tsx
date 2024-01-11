@@ -1,13 +1,6 @@
-import Feather from '@expo/vector-icons/Feather'
 import { Tabs } from 'expo-router'
 import { useTheme } from 'tamagui'
-
-interface TabBarIconProps {
-  name: React.ComponentProps<typeof Feather>['name']
-  color: string
-}
-
-const TabBarIcon = (props: TabBarIconProps) => <Feather size={28} style={{ marginBottom: -3 }} {...props} />
+import { User2 as Profile, Home } from '@tamagui/lucide-icons'
 
 export const unstable_settings = {
   initialRouteName: 'index',
@@ -25,14 +18,14 @@ const RootLayout = () => {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => <Home color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => <Profile color={color} />,
         }}
       />
     </Tabs>
