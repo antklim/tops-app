@@ -1,11 +1,9 @@
-import { config } from '@tamagui/config/v2-native'
 import { createTamagui } from 'tamagui'
 import { themes, tokens } from '@tamagui/themes'
 import { shorthands } from '@tamagui/shorthands'
 import fonts from './fonts'
 
 const appConfig = createTamagui({
-  ...config,
   fonts,
   shorthands,
   themes,
