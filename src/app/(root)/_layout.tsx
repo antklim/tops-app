@@ -1,6 +1,7 @@
 import Feather from '@expo/vector-icons/Feather'
 import { useTheme } from '@react-navigation/native'
 import { Tabs } from 'expo-router'
+// import { Home } from '@tamagui/lucide-icons'
 
 interface TabBarIconProps {
   name: React.ComponentProps<typeof Feather>['name']
@@ -26,6 +27,7 @@ const RootLayout = () => {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          // tabBarIcon: () => <Home />,
         }}
       />
       <Tabs.Screen
