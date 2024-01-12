@@ -1,8 +1,8 @@
-import { FlatList } from 'react-native'
-import { Heading, Spacer, YStack } from 'tamagui'
+import { Heading, ScrollView, Spacer, YStack } from 'tamagui'
 import { GymCard, type GymData } from './GymCard'
 
 export const Home = () => {
+  // TODO: get data from api
   const gymData: GymData[] = [
     {
       gymName: 'Brunswick',
@@ -25,15 +25,24 @@ export const Home = () => {
   ]
 
   return (
-    <YStack fullscreen flex={1} alignItems="center" padding="$3" minWidth={300} space="$4">
+    <ScrollView
+      fullscreen
+      flex={1}
+      contentContainerStyle={{ alignItems: 'center' }}
+      padding="$3"
+      minWidth={300}
+      space="$4">
       <Heading>Summer Boulder Ladder 2024</Heading>
-
-      <FlatList
-        data={gymData}
-        renderItem={({ item }) => <GymCard size="$5" width={335} height={340} {...item} />}
-        keyExtractor={({ gymName }) => gymName}
-        ItemSeparatorComponent={() => <Spacer width="$1" />}
-      />
-    </YStack>
+      <YStack space="$2">
+        <Spacer width="$1" />
+        {gymData.map((gym) => (
+          <>
+            <GymCard size="$5" width={335} height={340} {...gym} />
+            {/* TODO: don't show spacer after the last element */}
+            <Spacer width="$1" />
+          </>
+        ))}
+      </YStack>
+    </ScrollView>
   )
 }
