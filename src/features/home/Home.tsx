@@ -2,6 +2,7 @@ import { Heading, ScrollView, Spacer, YStack } from 'tamagui'
 import { GymCard, type GymData } from './GymCard'
 
 export const Home = () => {
+  // TODO: get data from api
   const gymData: GymData[] = [
     {
       gymName: 'Brunswick',
@@ -34,11 +35,13 @@ export const Home = () => {
       <Heading>Summer Boulder Ladder 2024</Heading>
       <YStack space="$2">
         <Spacer width="$1" />
-        <GymCard size="$5" width={335} height={340} {...gymData[0]} />
-        <Spacer width="$1" />
-        <GymCard size="$5" width={335} height={340} {...gymData[1]} />
-        <Spacer width="$1" />
-        <GymCard size="$5" width={335} height={340} {...gymData[2]} />
+        {gymData.map((gym) => (
+          <>
+            <GymCard size="$5" width={335} height={340} {...gym} />
+            {/* TODO: don't show spacer after the last element */}
+            <Spacer width="$1" />
+          </>
+        ))}
       </YStack>
     </ScrollView>
   )
