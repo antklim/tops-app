@@ -1,5 +1,13 @@
 import { Heading, ScrollView, Spacer, YStack } from 'tamagui'
 import { GymCard, type GymData } from './GymCard'
+import { FC } from 'react'
+
+const GymCardView: FC<{ gym: GymData; isFirstCard: boolean }> = ({ gym, isFirstCard }) => (
+  <>
+    {!isFirstCard && <Spacer width="$1" />}
+    <GymCard size="$5" width={335} height={340} {...gym} />
+  </>
+)
 
 export const Home = () => {
   // TODO: get data from api
@@ -35,12 +43,8 @@ export const Home = () => {
       <Heading>Summer Boulder Ladder 2024</Heading>
       <YStack space="$2">
         <Spacer width="$1" />
-        {gymData.map((gym) => (
-          <>
-            <GymCard size="$5" width={335} height={340} {...gym} />
-            {/* TODO: don't show spacer after the last element */}
-            <Spacer width="$1" />
-          </>
+        {gymData.map((gym, i) => (
+          <GymCardView key={i} gym={gym} isFirstCard={i === 0} />
         ))}
       </YStack>
     </ScrollView>
